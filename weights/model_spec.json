@@ -1,0 +1,969 @@
+{
+  "state_continuous": [
+    "multimorbidity_count",
+    "falls_count",
+    "adl_total_score",
+    "iadl_total_score",
+    "mobility_total_score",
+    "large_muscle_total_score",
+    "fine_motor_total_score",
+    "immediate_word_recall",
+    "delayed_word_recall",
+    "serial_sevens",
+    "backward_counting",
+    "total_word_recall",
+    "mental_status_score",
+    "total_cognition_score",
+    "cognition_27_score",
+    "cesd_score",
+    "life_satisfaction",
+    "loneliness_score",
+    "positive_affect_score",
+    "negative_affect_score",
+    "chronic_stress_count",
+    "social_support_spouse",
+    "neighborhood_disorder",
+    "neighborhood_cohesion",
+    "everyday_discrimination",
+    "systolic_bp",
+    "diastolic_bp",
+    "resting_pulse",
+    "peak_expiratory_flow",
+    "grip_strength",
+    "left_grip_strength",
+    "right_grip_strength",
+    "walking_speed_time",
+    "measured_weight",
+    "waist_circumference",
+    "measured_bmi",
+    "hospital_stays_count",
+    "hospital_nights",
+    "nursing_home_stays_count",
+    "doctor_visits_count",
+    "out_of_pocket_medical_cost",
+    "out_of_pocket_medical_cost_extended"
+  ],
+  "state_categorical": [
+    {
+      "name": "self_rated_health",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "hypertension_dx",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "diabetes_dx",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "cancer_dx",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "lung_disease_dx",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "heart_disease_dx",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "stroke_dx",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "psychiatric_dx",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "arthritis_dx",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "memory_disease_dx",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "eyesight",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "near_vision",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "distance_vision",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "hearing",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "hearing_aid_use",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "pain_presence",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "pain_severity",
+      "values": [
+        0.0,
+        1.0,
+        2.0,
+        3.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "falls_any",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "fall_injury",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "urinary_incontinence",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "back_problem",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "sleep_falling_problem",
+      "values": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "sleep_waking_problem",
+      "values": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "sleep_early_waking",
+      "values": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "rested_in_morning",
+      "values": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "shortness_of_breath",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "dizziness",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "fatigue",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "adl_walk_room",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "adl_dress",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "adl_bath",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "adl_eat",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "adl_bed_transfer",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "adl_toilet",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "iadl_phone",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "iadl_money",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "iadl_medication",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "iadl_shopping",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "iadl_meals",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "difficulty_walk_several_blocks",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "difficulty_walk_one_block",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "difficulty_sit_two_hours",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "difficulty_rise_chair",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "difficulty_climb_several_flights",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "difficulty_climb_one_flight",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "difficulty_stoop",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "difficulty_lift_10lb",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "difficulty_pick_dime",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "difficulty_reach_arms",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "difficulty_push_large_object",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "receives_adl_help",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "receives_iadl_help",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "self_rated_memory",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "cesd_depressed",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "cesd_effort",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "cesd_restless_sleep",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "cesd_happy",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "cesd_lonely",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "cesd_sad",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "cesd_could_not_get_going",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "cesd_enjoyed_life",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "social_contact_children",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "social_contact_friends",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "balance_score",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "hospitalization",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "nursing_home_use",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "doctor_visits_any",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "home_health_care",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "outpatient_surgery",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "dental_visit",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "prescription_drug_use",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    }
+  ],
+  "static_continuous": [
+    "education_years",
+    "childhood_ses",
+    "mother_education",
+    "father_education",
+    "longest_job_tenure",
+    "age_years",
+    "household_size",
+    "living_children",
+    "living_siblings",
+    "total_household_income",
+    "total_household_wealth",
+    "poverty_threshold",
+    "income_to_poverty_ratio",
+    "hours_worked_per_week",
+    "weeks_worked_per_year",
+    "job_tenure",
+    "measured_height"
+  ],
+  "static_categorical": [
+    {
+      "name": "sex",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "race_ethnicity",
+      "values": [
+        -1.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "education_level",
+      "values": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "foreign_born",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "childhood_health",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "longest_job_occupation",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0,
+        7.0,
+        8.0,
+        9.0,
+        10.0,
+        11.0,
+        12.0,
+        13.0,
+        14.0,
+        15.0,
+        16.0,
+        17.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "marital_status",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0,
+        7.0,
+        8.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "living_alone",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "nursing_home_residence",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "urban_rural_residence",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "home_ownership",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "housing_type",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0,
+        7.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "labor_force_status",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0,
+        7.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "currently_working",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "self_employed",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "current_occupation",
+      "values": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "ordered": true
+    },
+    {
+      "name": "health_limits_work",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "health_insurance_any",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "medicare_coverage",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "medicaid_coverage",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "va_coverage",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "long_term_care_insurance",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    }
+  ],
+  "action_continuous": [
+    {
+      "name": "cigarettes_per_day",
+      "low": -0.5701745286583901,
+      "high": 5.0666712954640385
+    },
+    {
+      "name": "alcohol_days_per_week",
+      "low": -0.7324754923582077,
+      "high": 3.1365380614995955
+    },
+    {
+      "name": "drinks_per_drinking_day",
+      "low": -0.7311483830213547,
+      "high": 3.8065123170614243
+    }
+  ],
+  "action_categorical": [
+    {
+      "name": "binge_drinking",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "vigorous_activity_frequency",
+      "values": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "moderate_activity_frequency",
+      "values": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "light_activity_frequency",
+      "values": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "hypertension_treatment",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    },
+    {
+      "name": "diabetes_oral_medication",
+      "values": [
+        0.0,
+        1.0
+      ],
+      "ordered": false
+    }
+  ],
+  "reward_binary": [
+    "death_event",
+    "adl_worsening",
+    "iadl_worsening"
+  ],
+  "reward_continuous": [],
+  "reward_binary_pos_weight": [
+    10.0,
+    10.0,
+    10.0
+  ],
+  "probe_only_rewards": [],
+  "pooled_binary_rewards": {},
+  "delta_t_mean": 2.032812859369809,
+  "delta_t_std": 0.5609435306177458
+}
