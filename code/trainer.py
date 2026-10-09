@@ -1,7 +1,7 @@
 """Training and evaluation for the health world model.
 
 Implements the JEPA embedding-prediction loss, clinical projection heads,
-one-step open-loop evaluation (the prior prefix follows the Dreamer evaluation protocol),
+one-step open-loop evaluation (the prior prefix follows the open-loop evaluation protocol),
 training logs, and checkpoints.
 """
 from __future__ import annotations

@@ -5,9 +5,12 @@ The health world model was developed based on the Joint-Embedding Predictive Arc
 ## Overview
 
 This repository contains the **model code and the checkpoint**
-(`weights/best_final.pt`), plus the aggregate tables and plotting code for
-manuscript Figures 2–5. Training entry points and the full cohort tables are
-not part of this release.
+(`weights/best_final.pt`), the aggregate data and plotting code for
+manuscript Figures 2–5, and the HRS, ELSA, and CHARLS cleaning scripts under
+`data_clean/`. Training entry points, the variable dictionary, and the full
+cohort data are not part of this release. Cleaning reads and writes `data/hrs/`,
+`data/elsa/`, and `data/charls/`. Person-level data are not included in this
+repository. See [`data/README.md`](data/README.md).
 
 ## Data availability
 
@@ -17,7 +20,7 @@ checkpoint is available under **controlled access** — see the Data Availabilit
 statement in the published article and [`data/README.md`](data/README.md) for
 the request and placement procedure.
 
-Cohort-level tables for Figures 2–5 are included under `data/figures/`. They
+Cohort-level data for Figures 2–5 are included under `data/figures/`. They
 hold AUROC, sensitivity, risk-tertile means, Kaplan–Meier curves, and
 age-standardized rates. They do not contain respondent identifiers.
 
@@ -30,7 +33,7 @@ data/cleaned/demo_transitions.parquet
 ## Requirements and how to run
 
 - Python 3.10+ with the packages in `requirements.txt`
-  (numpy, pandas, pyarrow, torch, matplotlib, scikit-learn). Evaluation uses torch. Redrawing Figures 2–5 imports the evaluation module, so it also needs torch and scikit-learn, plus matplotlib to write the PNGs.
+  (numpy, pandas, pyarrow, pyreadstat, openpyxl, torch, matplotlib, scikit-learn). Evaluation uses torch. Redrawing Figures 2–5 imports the evaluation module, so it also needs torch and scikit-learn, plus matplotlib to write the PNGs.
 
 ```bash
 pip install -r requirements.txt
@@ -39,7 +42,7 @@ python run_demo.py --device cuda
 ```
 
 `run_demo.py` loads `weights/best_final.pt`, encodes each example trajectory,
-and writes an open-loop table to `results/demo_predictions.csv`. Two scenarios
+and writes open-loop data to `results/demo_predictions.csv`. Two scenarios
 are evaluated for horizons 1–3:
 
 - `observed` — actions, static context, and the inter-wave interval stay at the
@@ -53,7 +56,7 @@ and `iadl_worsening`. Horizon 1 matches across the two scenarios because the
 light-activity change starts at horizon 2, the same switch as Figure 5. If the
 excerpt is missing, the script exits and points to `data/README.md`.
 
-Redraw Figures 2–5 from the shipped tables (no checkpoint, no microdata):
+Redraw Figures 2–5 from the shipped data (no checkpoint, no microdata):
 
 ```bash
 python plot_manuscript_figures.py
@@ -61,7 +64,7 @@ python plot_manuscript_figures.py
 
 This writes four files under `results/`:
 
-| Output | Manuscript | Cohort | Source tables |
+| Output | Manuscript | Cohort | Source data |
 |--|--|--|--|
 | `results/figure2_hrs_openloop.png` | Figure 2 | HRS | `data/figures/fig2_hrs/` |
 | `results/figure3_elsa_openloop.png` | Figure 3 | ELSA | `data/figures/fig3_elsa/` |
@@ -76,24 +79,117 @@ Figure 5 shows open-loop validation of simulated age-standardized mortality risk
 
 ## File map
 
-| File | Computes | Reproduces |
-|--|--|--|
-| `run_demo.py` | Open-loop death / ADL / IADL risks under observed actions and a single-lever increase in light activity | `results/demo_predictions.csv` |
-| `plot_manuscript_figures.py` | Reads the aggregate tables and calls the figure functions | `results/figure2_hrs_openloop.png`, `results/figure3_elsa_openloop.png`, `results/figure4_charls_openloop.png`, `results/figure5_light_activity.png` |
-| `evaluate_and_plot_hrs_jepa.py` |Model performance evaluation: discrimination and calibration in characterizing clinically meaningful risk, and validity in simulating plausible longitudinal trajectories under specified actions| The panels inside those four PNGs |
-| `code/specs.py` | Channel layout, categorical codes, and Δt standardization | `weights/model_spec.json` |
-| `code/nn.py` | State, static, and action encoders; temporal transformer; conditioned predictor; EMA target; clinical heads | The forward pass of the health world model |
-| `code/data.py` | Reads a transition table and pads person-level trajectories | The tensors consumed by `run_demo.py` |
-| `code/trainer.py` | Training-step helpers imported by the figure module | No separate output |
-| `code/evaluation.py` | Metric helpers imported by the figure module | No separate output |
-| `code/fig_report.py` | Action-stratum definitions used by Figure 5 (light activity; switch at horizon 2) | The stratum labels and colours in Figure 5 |
-| `code/external_cohorts.py` | ELSA and CHARLS cohort names. Full tables are not in this release | No separate output |
-| `weights/resolved_config.json` | Architecture widths, depth, and dropout | The network built around the checkpoint |
-| `weights/best_final.pt` | Manuscript checkpoint (`agent` state dict) | The model used for the reported results |
-| `data/figures/fig2_hrs/` | HRS open-loop metrics, risk tertiles, and death KM | Figure 2 |
-| `data/figures/fig3_elsa/` | ELSA open-loop metrics, risk tertiles, and death KM | Figure 3 |
-| `data/figures/fig4_charls/` | CHARLS open-loop metrics, risk tertiles, and death KM | Figure 4 |
-| `data/figures/fig5_light_activity/{hrs,elsa,charls}/` | Observed and simulated age-standardized death risk by light-activity stratum | Figure 5 |
+<table style="width:100%; table-layout:fixed;">
+  <colgroup>
+    <col style="width:18%">
+    <col style="width:47%">
+    <col style="width:35%">
+  </colgroup>
+  <thead>
+    <tr>
+      <th align="left" style="width:18%;">File</th>
+      <th align="left" style="width:47%;">Computes</th>
+      <th align="left" style="width:35%;">Reproduces</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">run_demo.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Open-loop death / ADL / IADL risks under observed actions and a single-lever increase in light activity</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">results/demo_predictions.csv</code></td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">plot_manuscript_figures.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Reads the aggregate data and calls the figure functions</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">results/figure2_hrs_openloop.png</code>, <code style="white-space:normal; word-break:break-all;">results/figure3_elsa_openloop.png</code>, <code style="white-space:normal; word-break:break-all;">results/figure4_charls_openloop.png</code>, <code style="white-space:normal; word-break:break-all;">results/figure5_light_activity.png</code></td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">evaluate_and_plot_hrs_jepa.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Model performance evaluation: discrimination and calibration in characterizing clinically meaningful risk, and validity in simulating plausible longitudinal trajectories under specified actions</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">The panels inside those four PNGs</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">code/specs.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Channel layout, categorical codes, and Δt standardization</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">weights/model_spec.json</code></td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">code/nn.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">State, static, and action encoders; temporal transformer; conditioned predictor; EMA target; clinical heads</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">The forward pass of the health world model</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">code/data.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Reads transition data and pads person-level trajectories</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">The tensors consumed by <code style="white-space:normal; word-break:break-all;">run_demo.py</code></td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">code/trainer.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Training-step helpers imported by the figure module</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">No separate output</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">code/evaluation.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Metric helpers imported by the figure module</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">No separate output</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">code/fig_report.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Action-stratum definitions used by Figure 5 (light activity; switch at horizon 2)</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">The stratum labels and colours in Figure 5</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">code/external_cohorts.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">ELSA and CHARLS cohort names. Full cohort data are not in this release</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">No separate output</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">data_clean/HRS/</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Cleans RAND and Harmonized HRS into transition data. Entry: <code style="white-space:normal; word-break:break-all;">run_clean_hrs.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">HRS train, validation, and test data (not shipped)</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">data_clean/ELSA/</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Cleans ELSA Waves 1–10 onto the HRS variable layout. Entry: <code style="white-space:normal; word-break:break-all;">run_clean_elsa_hrs.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">ELSA external data (not shipped)</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">data_clean/CHARLS/</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Cleans Harmonized CHARLS Waves 1–5 onto the HRS variable layout. Entry: <code style="white-space:normal; word-break:break-all;">run_clean_charls_hrs.py</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">CHARLS external data (not shipped)</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">weights/resolved_config.json</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Architecture widths, depth, and dropout</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">The network built around the checkpoint</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">weights/best_final.pt</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Manuscript checkpoint (<code style="white-space:normal; word-break:break-all;">agent</code> state dict)</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">The model used for the reported results</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">data/figures/fig2_hrs/</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">HRS open-loop metrics, risk tertiles, and death KM</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Figure 2</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">data/figures/fig3_elsa/</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">ELSA open-loop metrics, risk tertiles, and death KM</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Figure 3</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">data/figures/fig4_charls/</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">CHARLS open-loop metrics, risk tertiles, and death KM</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Figure 4</td>
+    </tr>
+    <tr>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;"><code style="white-space:normal; word-break:break-all;">data/figures/fig5_light_activity/{hrs,elsa,charls}/</code></td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Observed and simulated age-standardized death risk by light-activity stratum</td>
+      <td style="word-break:break-word; overflow-wrap:anywhere; vertical-align:top;">Figure 5</td>
+    </tr>
+  </tbody>
+</table>
 
 `code/__init__.py` marks the package. It is imported by the scripts above and produces no output of its own.
 

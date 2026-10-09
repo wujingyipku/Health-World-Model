@@ -116,7 +116,7 @@ from code.fig_report import (
 
 DEFAULT_ROOT = Path(__file__).resolve().parent
 DEFAULT_RUN_DIR = DEFAULT_ROOT / "weights"
-DEFAULT_DATA_DIR = DEFAULT_ROOT / "data" / "full_cohorts"
+DEFAULT_DATA_DIR = DEFAULT_ROOT / "data" / "hrs"
 
 # Nature Communications / ggsci "nature" palette (colorblind-friendly).
 NATURE = {
@@ -415,19 +415,19 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--checkpoint", default=None)
     parser.add_argument(
         "--train-data",
-        default=str(DEFAULT_DATA_DIR / "HRS_Dreamer_train.parquet"),
+        default=str(DEFAULT_DATA_DIR / "HRS_train.parquet"),
     )
     parser.add_argument(
         "--test-data",
-        default=str(DEFAULT_DATA_DIR / "HRS_Dreamer_test.parquet"),
+        default=str(DEFAULT_DATA_DIR / "HRS_test.parquet"),
     )
     parser.add_argument(
         "--val-data",
-        default=str(DEFAULT_DATA_DIR / "HRS_Dreamer_validation.parquet"),
+        default=str(DEFAULT_DATA_DIR / "HRS_validation.parquet"),
     )
     parser.add_argument(
         "--preprocessing",
-        default=str(DEFAULT_DATA_DIR / "HRS_Dreamer_preprocessing.json"),
+        default=str(DEFAULT_DATA_DIR / "HRS_preprocessing.json"),
     )
     parser.add_argument(
         "--output-dir",
@@ -639,7 +639,7 @@ def apply_external_cohort(args: argparse.Namespace) -> ExternalCohort | None:
     if not parquet.exists():
         raise FileNotFoundError(
             f"External {cohort.name} table not found: {parquet}. "
-            "Full cohort tables are not included in this release. See data/README.md."
+            "Person-level data are not included in this repository. See data/README.md."
         )
     default_test = HRS_TEST_PARQUET.resolve()
     if Path(args.test_data).resolve() == default_test:

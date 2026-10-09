@@ -414,7 +414,7 @@ def collect_free_rollouts(
     event_rows: list[pd.DataFrame] = []
     event_lookup = {name: idx for idx, name in enumerate(agent.spec.reward_binary)}
     event_labels = _event_labels_for_spec(agent.spec)
-    _ = preprocessing  # kept for API compatibility with Dreamer eval
+    _ = preprocessing  # kept for API compatibility with the evaluation entry point
 
     for raw_batch in loader:
         batch = raw_batch.to(device)

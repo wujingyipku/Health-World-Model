@@ -2,8 +2,18 @@ __pycache__/
 *.pyc
 .venv/
 
-# Person-level excerpt is not part of the git tree.
+# Person-level data and the variable dictionary are not included.
 # Aggregate figure tables under data/figures/ stay tracked.
 # See data/README.md.
 data/cleaned/**
 !data/README.md
+data/hrs/**
+data/elsa/**
+data/charls/**
+
+# Cleaned person-level tables produced by data_clean/.
+data_clean/**/output/
+data_clean/**/output_hrs_external/
+
+# Optional local workbooks are not part of this release.
+data_clean/**/*variable_dictionary*.xlsx
