@@ -46,7 +46,7 @@ are evaluated for horizons 1–3:
 - `observed` — actions, static context, and the inter-wave interval stay at the
   first transition.
 - `light_activity_high` — the same inputs, except from horizon 2
-  `light_activity_frequency` is set to 4, the high code in Figure 5.
+  `light_activity_frequency` is set to the high code in Figure 5.
   Other actions stay at the first transition.
 
 Printed and saved values are probabilities of `death_event`, `adl_worsening`,
