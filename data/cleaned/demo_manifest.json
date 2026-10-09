@@ -1,0 +1,17 @@
+{
+  "source_split": "HRS test transitions, model-ready table",
+  "n_persons": 24,
+  "n_transitions": 118,
+  "min_transitions_per_person": 4,
+  "sampling_seed": 2026,
+  "person_id": "replaced with demo_001 ... demo_024; original HRS identifiers removed",
+  "excluded": "published case-study respondent is not in this excerpt",
+  "continuous_channels": "z-scored with the HRS training-set mean and standard deviation",
+  "categorical_channels": "integer codes with paired observation masks;  mask 0 = missing",
+  "delta_t_years": "inter-wave interval in years; the loader standardizes it with model_spec delta_t_mean/std",
+  "rewards_included": [
+    "death_event",
+    "adl_worsening",
+    "iadl_worsening"
+  ]
+}

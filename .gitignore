@@ -2,11 +2,10 @@ __pycache__/
 *.pyc
 .venv/
 
-# Person-level data and the variable dictionary are not included.
+# Restricted cohort source files and the variable dictionary are not included.
+# The de-identified demo excerpt under data/cleaned/ is tracked.
 # Aggregate figure tables under data/figures/ stay tracked.
 # See data/README.md.
-data/cleaned/**
-!data/README.md
 data/hrs/**
 data/elsa/**
 data/charls/**

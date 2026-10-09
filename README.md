@@ -14,17 +14,16 @@ repository. See [`data/README.md`](data/README.md).
 
 ## Data availability
 
-Person-level data are **not included** in this repository (restricted cohort
-microdata). The de-identified, training-set–normalized example used to test the
-checkpoint is available under **controlled access** — see the Data Availability
-statement in the published article and [`data/README.md`](data/README.md) for
-the request and placement procedure.
+Person-level cohort microdata are **not included** in this repository. The
+de-identified, training-set–normalized example used to test the checkpoint is
+included at `data/cleaned/demo_transitions.parquet`. See
+[`data/README.md`](data/README.md).
 
 Cohort-level data for Figures 2–5 are included under `data/figures/`. They
 hold AUROC, sensitivity, risk-tertile means, Kaplan–Meier curves, and
 age-standardized rates. They do not contain respondent identifiers.
 
-To run the evaluation script, obtain that excerpt and place it at:
+The evaluation script reads:
 
 ```
 data/cleaned/demo_transitions.parquet
@@ -37,7 +36,6 @@ data/cleaned/demo_transitions.parquet
 
 ```bash
 pip install -r requirements.txt
-# place the de-identified excerpt at data/cleaned/demo_transitions.parquet
 python run_demo.py --device cuda
 ```
 
